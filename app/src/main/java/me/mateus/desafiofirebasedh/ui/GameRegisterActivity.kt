@@ -1,16 +1,17 @@
 package me.mateus.desafiofirebasedh.ui
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import me.mateus.desafiofirebasedh.GameViewModel
 import me.mateus.desafiofirebasedh.databinding.ActivityGameRegisterBinding
 import me.mateus.desafiofirebasedh.models.Game
-import java.util.function.Supplier
 
 class GameRegisterActivity : AppCompatActivity() {
 
@@ -31,18 +32,32 @@ class GameRegisterActivity : AppCompatActivity() {
             getDataFromScreen().also { game ->
                 selectedImage.also { img ->
                     if (game == null) {
-                        showToast("É necessário preencher todos os campos.")
+                        showMessage(
+                            title = "Aviso",
+                            message = "É necessário preencher todos os campos."
+                        )
                     } else if (img == null) {
-                        showToast("É necessário selecionar uma imagem.")
+                        showMessage(
+                            title = "Aviso",
+                            message = "É necessário selecionar uma imagem."
+                        )
                     } else {
-                        gameViewModel.registerGame(
-                            game, { contentResolver.openFileDescriptor(img, "r")?.fileDescriptor!! }
-                        ) { ex ->
-                            if (ex == null) {
-                                Log.i("GameRegister", "Salvo com sucesso!")
-                                finish()
-                            } else {
-                                Log.e("GameRegister", "Erro ao salvar!", ex)
+                        LoadingDialog(this, "Salvando...").also { dialog ->
+                            dialog.showDialog()
+                            gameViewModel.registerGame(
+                                game,
+                                { contentResolver.openFileDescriptor(img, "r")?.fileDescriptor!! }
+                            ) { ex ->
+                                runOnUiThread {
+                                    dialog.dismissDialog()
+                                }
+                                if (ex == null) {
+                                    showToast("Salvo com sucesso!")
+                                    finish()
+                                } else {
+                                    Log.e("GameRegister", "Erro ao salvar!", ex)
+                                    showToast("Erro ao salvar!")
+                                }
                             }
                         }
                     }
@@ -89,7 +104,25 @@ class GameRegisterActivity : AppCompatActivity() {
     }
 
     private fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+        runOnUiThread {
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+        }
     }
+
+    private fun showMessage(
+        title: String,
+        message: String,
+        buttonText: String = "OK",
+        clickListener: DialogInterface.OnClickListener? = null
+    ) {
+        runOnUiThread {
+            AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(buttonText, clickListener)
+                .show()
+        }
+    }
+
 
 }

@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/ivGameImage"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="156dp"
             android:scaleType="centerCrop"
             android:src="@drawable/splash_image" />
 

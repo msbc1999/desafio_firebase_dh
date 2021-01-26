@@ -1,6 +1,7 @@
 package me.mateus.desafiofirebasedh.models
 
 import com.google.firebase.firestore.DocumentId
+import java.io.Serializable
 
 data class Game(
     @DocumentId
@@ -10,8 +11,4 @@ data class Game(
     var description: String = "",
     var imageMD5: String = "",
     var imageUrl: String = ""
-)
-
-data class GameDocument(
-    var gameList: List<Game> = listOf()
-)
+) : Serializable

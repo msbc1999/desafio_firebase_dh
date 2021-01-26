@@ -77,6 +77,19 @@ class GameViewHolder(
 ) :
     RecyclerView.ViewHolder(binding.root) {
 
+    init {
+        binding.root.setOnClickListener {
+            game?.also { g ->
+                context.startActivity(
+                    Intent(
+                        context,
+                        GameDetailsActivity::class.java
+                    ).apply { putExtra("game", g) }
+                )
+            }
+        }
+    }
+
     var game: Game? = null
 
     fun bindData() {

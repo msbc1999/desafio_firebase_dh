@@ -27,5 +27,9 @@ class DesafioFirebaseUtils {
             }.close()
             return md5
         }
+
+
+
+
     }
 }
