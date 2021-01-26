@@ -1,7 +1,8 @@
-package me.mateus.desafiofirebasedh
+package me.mateus.desafiofirebasedh.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import me.mateus.desafiofirebasedh.R
 
 class GameDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -7,7 +7,7 @@
     android:background="@drawable/splash_image"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".ui.LoginActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="140dp"
@@ -18,6 +18,7 @@
         app:cardCornerRadius="140dp">
 
         <ImageView
+            android:id="@+id/ivSelectImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
@@ -51,6 +52,7 @@
                 android:text="Name" />
 
             <EditText
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -63,6 +65,7 @@
                 android:text="Created at" />
 
             <EditText
+                android:id="@+id/etReleaseDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="date"
@@ -75,6 +78,7 @@
                 android:text="Description" />
 
             <EditText
+                android:id="@+id/etDescription"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:inputType="textMultiLine"
@@ -82,6 +86,7 @@
 
 
             <Button
+                android:id="@+id/btnRegisterGame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
