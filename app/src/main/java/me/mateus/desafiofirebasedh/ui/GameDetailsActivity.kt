@@ -32,5 +32,10 @@ class GameDetailsActivity : AppCompatActivity() {
                 .into(binding.ivGameImage)
 
         } else finish()
+
+
+        binding.topAppBar.setNavigationOnClickListener {
+            finish()
+        }
     }
 }
